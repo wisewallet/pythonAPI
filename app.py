@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request, jsonify
 import boto3
 
 app = Flask(__name__)
@@ -12,7 +12,7 @@ def index():
     while 'LastEvaluatedKey' in companyList:
         companyTableResponse = companyTable.scan(ExclusiveStartKey=response['LastEvaluatedKey'])
         companyList.extend(companyTableResponse['Items'])
-    return companyList
+    return jsonify(companyList)
 
 if __name__ == '__main__':
     app.run(debug=True)
