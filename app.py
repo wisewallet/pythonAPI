@@ -16,8 +16,8 @@ def index():
     while 'LastEvaluatedKey' in companyList:
         companyTableResponse = companyTable.scan(ExclusiveStartKey=response['LastEvaluatedKey'])
         companyList.extend(companyTableResponse['Items'])
-    companyList.sort(key=totalScore)
-    return json.dumps(companyList)
+    companyList.sort(key=totalScore, reverse=True)
+    return json.dumps(companyList[:10])
 
 if __name__ == '__main__':
     app.run(debug=True)
