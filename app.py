@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 import boto3
+import json
 
 app = Flask(__name__)
 dynamodb = boto3.resource('dynamodb')
@@ -12,7 +13,7 @@ def index():
     while 'LastEvaluatedKey' in companyList:
         companyTableResponse = companyTable.scan(ExclusiveStartKey=response['LastEvaluatedKey'])
         companyList.extend(companyTableResponse['Items'])
-    return jsonify(companyList)
+    return json.dumps(companyList)
 
 if __name__ == '__main__':
     app.run(debug=True)
