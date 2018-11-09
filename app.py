@@ -1,9 +1,12 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request
 import boto3
 import simplejson as json
 
 app = Flask(__name__)
 dynamodb = boto3.resource('dynamodb')
+
+def totalScore(company):
+    return company['eScore'] + company['sScore'] + company['gScore']
 
 @app.route('/', methods=['GET'])
 def index():
@@ -13,6 +16,7 @@ def index():
     while 'LastEvaluatedKey' in companyList:
         companyTableResponse = companyTable.scan(ExclusiveStartKey=response['LastEvaluatedKey'])
         companyList.extend(companyTableResponse['Items'])
+    companyList.sort(key=totalScore)
     return json.dumps(companyList)
 
 if __name__ == '__main__':
