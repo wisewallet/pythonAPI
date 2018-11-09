@@ -4,7 +4,7 @@ import boto3
 app = Flask(__name__)
 dynamodb = boto3.resource('dynamodb')
 
-@app.route('/')
+@app.route('/', methods=['GET'])
 def index():
     companyTable = dynamodb.Table('companies')
     companyTableResponse = companyTable.scan()
