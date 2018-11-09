@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
 import boto3
-import json
+import simplejson as json
 
 app = Flask(__name__)
 dynamodb = boto3.resource('dynamodb')
