@@ -8,7 +8,7 @@ dynamodb = boto3.resource('dynamodb')
 def totalScore(company):
     return company['eScore'] + company['sScore'] + company['gScore']
 
-@app.route('/', methods=['GET'])
+@app.route('/getSuggestions', methods=['GET'])
 def index():
     companyTable = dynamodb.Table('companies')
     companyTableResponse = companyTable.scan()
