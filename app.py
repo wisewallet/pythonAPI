@@ -2,7 +2,7 @@ from flask import Flask, request
 import simplejson as json
 from signup import signup_api
 
-app = Flask(__name__)"
+app = Flask(__name__)
 
 app.register_blueprint(signup_api)
 
