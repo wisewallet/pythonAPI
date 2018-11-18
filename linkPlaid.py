@@ -26,17 +26,17 @@ def linkPlaid():
     #exchange_response = plaidClient.Item.public_token.exchange(public_token)
     #print 'access token: ' + exchange_response['access_token']
     #print 'item ID: ' + exchange_response['item_id']
-    transactions_response = client.Transactions.get(access_token,
-                                                    start_date='2018-01-01',
-                                                    end_date='2018-02-01')
+    transactions_response = plaidClient.Transactions.get(access_token,
+                                                         start_date='2018-01-01',
+                                                         end_date='2018-02-01')
     transactions = transactions_response['transactions']
     while len(transactions) < transactions_response['total_transactions']:
-        transactions_response = client.Transactions.get(access_token,
-                                                        start_date='2018-01-01',
-                                                        end_date='2018-02-01',
-                                                        offset=len(
-                                                            transactions)
-                                                        )
+        transactions_response = plaidClient.Transactions.get(access_token,
+                                                             start_date='2018-01-01',
+                                                             end_date='2018-02-01',
+                                                             offset=len(
+                                                                 transactions)
+                                                             )
         transactions.extend(transactions_response['transactions'])
     end = time.time()
     print(transactions)
