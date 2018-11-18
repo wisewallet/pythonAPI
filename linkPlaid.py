@@ -64,5 +64,5 @@ def linkPlaid():
     end = idk.time()
     # print(transactions)
     for i in range(6):
-        print("Start: " + get_first_day(datetime.today(), 0, 0))
+        print("Start: " + get_first_day(datetime.now(), 0, 0))
     return str(end - start)
