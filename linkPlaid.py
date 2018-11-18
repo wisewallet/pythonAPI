@@ -48,6 +48,7 @@ def calculateScore(transactions):
     foundCount = 0
     foundTransactions = dict()
     found = False
+    notFound = 0
     for i in range(len(transactions)):
         for attempt in companyDictionary:
             if attempt['transactionString'] in transactions[i]['name'].lower():
@@ -61,6 +62,7 @@ def calculateScore(transactions):
                 try:
                     item = response['Item']
                 except KeyError as e:
+                    notFound += 1
                     #print("Not Found" + transactions[i]['name'])
                 else:
                     # print(transactions[i])
