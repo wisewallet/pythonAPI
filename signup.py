@@ -1,4 +1,5 @@
 from flask import Blueprint, request
+import simplejson as json
 import pymongo
 import bcrypt
 
@@ -9,6 +10,7 @@ db = client["users"]
 
 @signup_api.route("/signup")
 def signup():
-    user ={"email":request.data['email'], "password": bcrypt.hashpw(request.data['password'], bcrypt.gensalt())}
+    data = json.loads(request.data)
+    user ={"email":data['email'], "password": bcrypt.hashpw(data['password'], bcrypt.gensalt())}
     db.users.insert_one(user)
     return request.data
