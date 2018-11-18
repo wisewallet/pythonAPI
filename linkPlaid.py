@@ -58,6 +58,6 @@ def linkPlaid():
     for i in range(6):
         next_month = (datetime.now() + timedelta(-30 * (1 + i)).replace(
             day=28) + datetime.timedelta(days=4)  # this will never fail
-        end_date = next_month - datetime.timedelta(days=next_month.day)
-        print(end_date)
+        endtt = next_month - datetime.timedelta(days=next_month.day)
+        print(str(endtt))
     return str(end - start)
