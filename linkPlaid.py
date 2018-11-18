@@ -135,7 +135,7 @@ def linkPlaid():
                                                                  )
             transactions.extend(transactions_response['transactions'])
         print(calculateScore(transactions))
-        db.users.update({"_id" :"5bf1c549ec8be10a60582246" },{'$set' : {"scoreHistory."+ str(start_date):10, "initalized": True}}, upsert=False)
+        db.users.update({"email" :"williamjbrower@gmail.com" },{'$set' : {"scoreHistory":10, "initalized": True}}, upsert=False)
     end = idk.time()
     # print(transactions)
     return str(end - start)
