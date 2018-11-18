@@ -4,6 +4,8 @@ import pymongo
 import bcrypt
 import time
 import plaid
+import datetime
+import boto3
 
 linkPlaid_api = Blueprint('linkPlaid_api', __name__)
 
@@ -16,10 +18,17 @@ plaidClient = plaid.Client('5a9f59e5bdc6a4062cd4229b',
                            '06812b585d6f3b0ebde352a7759bb1',
                            'development')
 
+# Get the service resource.
+dynamodb = boto3.resource('dynamodb')
+
+table = dynamodb.Table('companies')
+companyDicionaryDB = dynamodb.Table('companyDictionary')
+
 
 @linkPlaid_api.route("/link")
 def linkPlaid():
     start = time.time()
+    print(companyDicionaryDB.scan())
     data = json.loads(request.data)
     access_token = "access-development-65c2bdad-21b0-47e5-b1c5-f1455b83c340"
     #public_token = data["public_token"]
