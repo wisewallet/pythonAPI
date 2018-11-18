@@ -56,13 +56,13 @@ def linkPlaid():
         print("End: " + '{:%Y-%m-%d}'.format(end_date))
 
         transactions_response = plaidClient.Transactions.get(access_token,
-                                                             start_date,
-                                                             end_date)
+                                                             '{:%Y-%m-%d}'.format(start_date),
+                                                             '{:%Y-%m-%d}'.format(end_date))
         transactions = transactions_response['transactions']
         while len(transactions) < transactions_response['total_transactions']:
             transactions_response = plaidClient.Transactions.get(access_token,
-                                                                 start_date,
-                                                                 end_date,
+                                                                 '{:%Y-%m-%d}'.format(start_date),
+                                                                 '{:%Y-%m-%d}'.format(end_date),
                                                                  offset=len(
                                                                      transactions)
                                                                  )
