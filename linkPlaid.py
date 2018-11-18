@@ -12,7 +12,7 @@ linkPlaid_api = Blueprint('linkPlaid_api', __name__)
 mongoClient = pymongo.MongoClient(
     "mongodb://dbadmin:xcdVRvVnykgGMeouDlTWEnVVh@69.55.55.54:27017/")
 db = mongoClient["users"]
-
+companyDB = mongoClient["companies"]
 plaidClient = plaid.Client('5a9f59e5bdc6a4062cd4229b',
                            '0f2c037ebe121dfeffc15cd13bb5f7',
                            '06812b585d6f3b0ebde352a7759bb1',
@@ -80,17 +80,7 @@ def calculateScore(transactions):
                 break
         if not found:
             #print("Not Found: " + transactions[i]['name'])
-            response = notFoundTable.update_item(
-                Key={
-                    'transactionName': transactions[i]['name']
-                },
-                UpdateExpression="SET countNumber = if_not_exists(countNumber, :start) + :increment",
-                ExpressionAttributeValues={
-                    ':start': 0,
-                    ':increment': 1
-                },
-                ReturnValues="UPDATED_NEW"
-            )
+            companyDB.not_found.update({"name" :transactions[i]['name']},{'$inc' : {"count": 1}}, upsert=True)
         found = False
     if foundCount == 0:
         return("No foundTransactions")
@@ -98,8 +88,8 @@ def calculateScore(transactions):
     scores['social'] /= foundCount
     scores['politics'] /= foundCount
     scores['governance'] /= foundCount
-    scores['total'] = int(0.4 * scores['environmental'] +
-                          0.4 * scores['social'] + 0.2 * scores['governance'])
+    scores['total'] = int(0.4 * scores['environmental']
+                          + 0.4 * scores['social'] + 0.2 * scores['governance'])
     return scores
 
 
@@ -137,7 +127,8 @@ def linkPlaid():
         scores = calculateScore(transactions)
         print(scores)
         updateQuery = "scoreHistory." + str(start_date)
-        db.users.update({"email" :"williamjbrower@gmail.com" },{'$set' : {updateQuery:scores, "initalized": True}}, upsert=False)
+        db.users.update({"email": "williamjbrower@gmail.com"}, {
+                        '$set': {updateQuery: scores, "initalized": True}}, upsert=False)
     end = idk.time()
     # print(transactions)
     return str(end - start)
