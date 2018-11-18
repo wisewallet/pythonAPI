@@ -14,6 +14,6 @@ db = client["users"]
 def signup():
     data = json.loads(request.data)
     user = {"email": data['email'], "password": bcrypt.hashpw(data['password'], bcrypt.gensalt(
-    )), linkedPLaid: False, first_name: data['firstName'], last_name: data['lastName']}
+    )), "linked_plaid": False, "first_name": data['firstName'], "last_name": data['lastName']}
     db.users.insert_one(user)
     return request.data
