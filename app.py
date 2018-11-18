@@ -1,6 +1,6 @@
 from flask import Flask, request
 import simplejson as json
-from ./endpoints/signup import signup_api
+from endpoints/signup import signup_api
 
 app = Flask(__name__)
 
