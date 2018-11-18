@@ -23,6 +23,12 @@ dynamodb = boto3.resource('dynamodb')
 
 table = dynamodb.Table('companies')
 companyDicionaryDB = dynamodb.Table('companyDictionary')
+dictResponse = companyDicionaryDB.scan()
+companyDictionary = dictResponse['Items']
+while 'LastEvaluatedKey' in dictResponse:
+    response = companyDicionaryDB.scan(
+        ExclusiveStartKey=response['LastEvaluatedKey'])
+    companyDictionary.extend(response['Items'])
 
 
 @linkPlaid_api.route("/link")
