@@ -49,6 +49,7 @@ def linkPlaid():
     # exchange_response = plaidClient.Item.public_token.exchange(public_token)
     # print 'access token: ' + exchange_response['access_token']
     # print 'item ID: ' + exchange_response['item_id']
+    return("Success")
     for i in range(6):
         start_date = get_first_day(datetime.now(), 0, -(i+1))
         end_date = get_last_day(start_date)
@@ -70,4 +71,5 @@ def linkPlaid():
 
     end = idk.time()
     # print(transactions)
-    return str(end - start)
+    print str(end - start)
+    #return str(end - start)
