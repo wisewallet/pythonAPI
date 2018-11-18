@@ -5,12 +5,15 @@ import bcrypt
 
 signup_api = Blueprint('signup_api', __name__)
 
-client = pymongo.MongoClient("mongodb://dbadmin:xcdVRvVnykgGMeouDlTWEnVVh@69.55.55.54:27017/")
+client = pymongo.MongoClient(
+    "mongodb://dbadmin:xcdVRvVnykgGMeouDlTWEnVVh@69.55.55.54:27017/")
 db = client["users"]
+
 
 @signup_api.route("/signup")
 def signup():
     data = json.loads(request.data)
-    user ={"email":data['email'], "password": bcrypt.hashpw(data['password'], bcrypt.gensalt())}
+    user = {"email": data['email'], "password": bcrypt.hashpw(data['password'], bcrypt.gensalt(
+    )), linkedPLaid: false, first_name: data['firstName'], last_name: data['lastName']}
     db.users.insert_one(user)
     return request.data
