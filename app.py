@@ -1,9 +1,12 @@
 from flask import Flask, request
 import simplejson as json
+from signup import signup_api
 
 app = Flask(__name__)
 
-@app.route('/getSuggestions', methods=['GET'])
+app.register_blueprint(signup_api)
+
+@app.route('/', methods=['GET'])
 def index():
     return json.dumps("Hello World")
 
