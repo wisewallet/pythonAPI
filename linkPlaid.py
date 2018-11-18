@@ -4,7 +4,7 @@ import pymongo
 import bcrypt
 import time
 import plaid
-import datetime
+from datetime import datetime, date, time, timedelta
 import boto3
 
 linkPlaid_api = Blueprint('linkPlaid_api', __name__)
