@@ -11,7 +11,7 @@ app.register_blueprint(signup_api)
 
 @app.route('/', methods=['GET'])
 def index():
-    mongo.db.users.insert_one({"email": "main"})
+    mongo.users.users.insert_one({"email": "main"})
     return json.dumps("Hello World")
 
 if __name__ == '__main__':
