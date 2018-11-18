@@ -11,7 +11,7 @@ client = pymongo.MongoClient(
 db = client["users"]
 
 
-@linkPlaid_api.route("/linkplaid")
+@linkPlaid_api.route("/link")
 def linkPlaid():
     start = time.time()
     data = json.loads(request.data)
