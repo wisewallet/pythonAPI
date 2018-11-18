@@ -49,23 +49,25 @@ def linkPlaid():
     # exchange_response = plaidClient.Item.public_token.exchange(public_token)
     # print 'access token: ' + exchange_response['access_token']
     # print 'item ID: ' + exchange_response['item_id']
-    transactions_response = plaidClient.Transactions.get(access_token,
-                                                         start_date='2018-01-01',
-                                                         end_date='2018-02-01')
-    transactions = transactions_response['transactions']
-    while len(transactions) < transactions_response['total_transactions']:
-        transactions_response = plaidClient.Transactions.get(access_token,
-                                                             start_date='2018-01-01',
-                                                             end_date='2018-02-01',
-                                                             offset=len(
-                                                                 transactions)
-                                                             )
-        transactions.extend(transactions_response['transactions'])
-    end = idk.time()
-    # print(transactions)
     for i in range(6):
         start_date = get_first_day(datetime.now(), 0, -(i+1))
         end_date = get_last_day(start_date)
         print("Start: " + '{:%Y-%m-%d}'.format(start_date))
         print("End: " + '{:%Y-%m-%d}'.format(end_date))
+
+        transactions_response = plaidClient.Transactions.get(access_token,
+                                                             start_date,
+                                                             end_date)
+        transactions = transactions_response['transactions']
+        while len(transactions) < transactions_response['total_transactions']:
+            transactions_response = plaidClient.Transactions.get(access_token,
+                                                                 start_date,
+                                                                 end_date,
+                                                                 offset=len(
+                                                                     transactions)
+                                                                 )
+            transactions.extend(transactions_response['transactions'])
+
+    end = idk.time()
+    # print(transactions)
     return str(end - start)
