@@ -4,12 +4,7 @@ import simplejson as json
 from signup import signup_api
 
 app = Flask(__name__)
-app.config['MONGO_HOST'] = '69.55.55.54'
-app.config['MONGO_PORT'] = '27017'
-app.config['MONGO_DBNAME'] = 'users'
-app.config['MONGO_USERNAME'] = 'dbadmin'
-app.config['MONGO_PASSWORD'] = 'xcdVRvVnykgGMeouDlTWEnVVh'
-app.config['MONGO_AUTH_SOURCE'] = 'admin'
+app.config["MONGO_URI"] = "mongodb://dbadmin:xcdVRvVnykgGMeouDlTWEnVVh@69.55.55.54:27017/"
 mongo = PyMongo(app)
 
 app.register_blueprint(signup_api)
