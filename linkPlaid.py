@@ -19,4 +19,4 @@ def linkPlaid():
     )), "linked_plaid": False, "first_name": data['firstName'], "last_name": data['lastName']}
     toReturn = db.users.insert_one(user).inserted_id
     end = time.time()
-    return end - start
+    return str(end - start)
