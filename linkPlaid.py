@@ -30,6 +30,14 @@ while 'LastEvaluatedKey' in dictResponse:
         ExclusiveStartKey=response['LastEvaluatedKey'])
     companyDictionary.extend(response['Items'])
 
+def get_first_day(dt, d_years=0, d_months=0):
+    # d_years, d_months are "deltas" to apply to dt
+    y, m = dt.year + d_years, dt.month + d_months
+    a, m = divmod(m-1, 12)
+    return date(y+a, m+1, 1)
+
+def get_last_day(dt):
+    return get_first_day(dt, 0, 1) + timedelta(-1)
 
 @linkPlaid_api.route("/link")
 def linkPlaid():
@@ -56,7 +64,5 @@ def linkPlaid():
     end = idk.time()
     # print(transactions)
     for i in range(6):
-        next_month = (datetime.now() + timedelta(-30 * (1 + i)).replace(day=28) + datetime.timedelta(days=4))  # this will never fail
-        end_date = next_month - datetime.timedelta(days=next_month.day)
-        print(str(end_date))
+        print("Start: " + get_first_day(datetime.today(), 0, 0))
     return str(end - start)
