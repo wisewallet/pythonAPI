@@ -1,4 +1,4 @@
-from flask import Blueprint
+from flask import Blueprint, request
 import pymongo
 
 signup_api = Blueprint('signup_api', __name__)
