@@ -2,7 +2,7 @@ from flask import Blueprint, request
 import simplejson as json
 import pymongo
 import bcrypt
-import time
+import time as idk
 import plaid
 from datetime import datetime, date, time, timedelta
 import boto3
@@ -33,7 +33,7 @@ while 'LastEvaluatedKey' in dictResponse:
 
 @linkPlaid_api.route("/link")
 def linkPlaid():
-    start = time.time()
+    start = idk.time()
     # print(companyDicionaryDB.scan())
     data = json.loads(request.data)
     access_token = "access-development-65c2bdad-21b0-47e5-b1c5-f1455b83c340"
@@ -53,7 +53,7 @@ def linkPlaid():
                                                                  transactions)
                                                              )
         transactions.extend(transactions_response['transactions'])
-    end = time.time()
+    end = idk.time()
     # print(transactions)
     for i in range(6):
         print("Start: " +
