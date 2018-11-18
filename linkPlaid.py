@@ -55,4 +55,7 @@ def linkPlaid():
         transactions.extend(transactions_response['transactions'])
     end = time.time()
     # print(transactions)
+    for i in range(6):
+        print("Start: " +
+              '{:%Y-%m-%d}'.format(datetime.now() + timedelta(-30)))
     return str(end - start)
