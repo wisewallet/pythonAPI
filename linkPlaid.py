@@ -116,8 +116,8 @@ def linkPlaid():
     for i in range(6):
         start_date = get_first_day(datetime.now(), 0, -(i + 1))
         end_date = get_last_day(start_date)
-        print("Start: " + '{:%Y-%m-%d}'.format(start_date))
-        print("End: " + '{:%Y-%m-%d}'.format(end_date))
+        #print("Start: " + '{:%Y-%m-%d}'.format(start_date))
+        #print("End: " + '{:%Y-%m-%d}'.format(end_date))
 
         transactions_response = plaidClient.Transactions.get(access_token,
                                                              '{:%Y-%m-%d}'.format(
