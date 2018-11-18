@@ -48,5 +48,5 @@ def linkPlaid():
                                                              )
         transactions.extend(transactions_response['transactions'])
     end = time.time()
-    print(transactions)
+    # print(transactions)
     return str(end - start)
