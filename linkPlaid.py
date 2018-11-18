@@ -34,7 +34,7 @@ while 'LastEvaluatedKey' in dictResponse:
 @linkPlaid_api.route("/link")
 def linkPlaid():
     start = time.time()
-    print(companyDicionaryDB.scan())
+    # print(companyDicionaryDB.scan())
     data = json.loads(request.data)
     access_token = "access-development-65c2bdad-21b0-47e5-b1c5-f1455b83c340"
     #public_token = data["public_token"]
