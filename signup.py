@@ -10,4 +10,4 @@ db = client["users"]
 def signup():
     for x in db.users.find():
         print(x)
-    return "list of accounts"
+    return request
