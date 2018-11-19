@@ -118,7 +118,7 @@ def linkPlaid():
         print(scores)
         updateQuery = "scoreHistory." + str(start_date)
         db.users.update({"email": "williamjbrower@gmail.com"}, {
-                        '$set': {updateQuery: scores, "initalized": True}}, upsert=False)
+                        '$set': {updateQuery: scores, "initalizedHistory": True}}, upsert=False)
     end = idk.time()
     # print(transactions)
     return str(end - start)
