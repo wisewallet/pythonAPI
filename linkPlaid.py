@@ -45,8 +45,8 @@ def calculateScore(transactions):
                 scores['politics'] += 100
             if item['pScore'] == "neutral" or item['pScore'] == "na":
                 scores['politics'] += 50
-        if not found:
-            companyDB.not_found.update_one({"name": transactions[i]['name']}, {'$inc': {"count": 1}}, upsert=True)
+        #if not found:
+            #companyDB.not_found.update_one({"name": transactions[i]['name']}, {'$inc': {"count": 1}}, upsert=True)
         found = False
     if foundCount == 0:
         return("No Transactions Found")
