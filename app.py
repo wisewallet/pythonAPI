@@ -16,6 +16,10 @@ application.register_blueprint(getscores_api)
 def index():
     return json.dumps("Hello World!")
 
+@application.route('/hello')
+def index():
+    return json.dumps("Hello World!")
+
 
 if __name__ == '__main__':
     application.run(debug=True)
