@@ -94,7 +94,7 @@ def linkPlaid():
         transactions_response = plaidClient.Transactions.get(access_token, start_date, end_date, offset=len(transactions))
         transactions.extend(transactions_response['transactions'])
     scores = calculateScore(transactions)
-    db.users.update({"_id": user['_id']}, {'$set': {scores: scores, "initalizedCurrent": True}}, upsert=False)
+    db.users.update({"_id": user['_id']}, {'$set': {"scores": scores, "initalizedCurrent": True}}, upsert=False)
 
     for i in range(6):
         start_date_unformatted = get_first_day(datetime.now(), 0, -(i + 1))
