@@ -51,7 +51,7 @@ def calculateScore(transactions):
             if attempt['transactionString'] in transactions[i]['name'].lower():
                 found = True
                 item = companyDB.companies.find_one({'name': attempt['matchName']})
-                companyDB.companies.update_one({'name': attempt['matchName']}, {"$addToSet": {"transactionString": transactions[i]['name']}})
+                companyDB.companies.update_one({'name': attempt['matchName']}, {"$addToSet": {"transactionMatch": transactions[i]['name']}})
                 foundCount += 1
                 scores['environmental'] += int(item['eScore'])
                 scores['social'] += int(item['sScore'])
