@@ -75,7 +75,7 @@ def calculateScore(transactions):
                                        '$inc': {"count": 1}}, upsert=True)
         found = False
     if foundCount == 0:
-        return("No foundTransactions")
+        return("No Transactions Found")
     scores['environmental'] /= foundCount
     scores['social'] /= foundCount
     scores['politics'] /= foundCount
