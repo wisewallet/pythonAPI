@@ -73,6 +73,7 @@ def linkPlaid():
     # exchange_response = plaidClient.Item.public_token.exchange(public_token)
     # print 'access token: ' + exchange_response['access_token']
     # print 'item ID: ' + exchange_response['item_id']
+    return data['id']
     user = db.users.find_one({'_id': ObjectId(data['id'])})
     return "fuck mongo"
     access_token = user['plaid']['access_token']
