@@ -13,7 +13,7 @@ db = client["users"]
 @login_api.route("/login")
 def login():
     data = json.loads(request.data)
-    item = companyDB.companies.find_one({'email': data['email']})
+    item = db.users.find_one({'email': data['email']})
     if bcrypt.checkpw(item['password'], data['password']):
         return("It Matches!")
     else:
