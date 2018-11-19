@@ -6,6 +6,7 @@ import time as idk
 import plaid
 from datetime import datetime, date, time, timedelta
 import boto3
+from bson.objectid import ObjectId
 
 linkPlaid_api = Blueprint('linkPlaid_api', __name__)
 
