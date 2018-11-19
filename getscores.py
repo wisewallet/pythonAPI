@@ -16,7 +16,6 @@ def getscores():
     data = json.loads(request.data)
     try:
          item = db.users.find_one({'_id': ObjectId(data['id'])})
-         break
     except InvalidId:
          return("Oops!  That was no valid number.  Try again...")
     if item == None:
