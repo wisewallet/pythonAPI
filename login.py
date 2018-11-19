@@ -15,7 +15,7 @@ def login():
     data = json.loads(request.data)
     item = db.users.find_one({'email': data['email']})
     print(item)
-    if bcrypt.compareSync(item['password'].encode('utf8'), data['password'].encode('utf8')):
+    if bcrypt.checkpw(item['password'].encode('utf8'), data['password']):
         return("It Matches!")
     else:
         return("It Does not Match")
