@@ -68,7 +68,6 @@ def calculateScore(transactions):
 @linkPlaid_api.route("/link")
 def linkPlaid():
     start = clock.time()
-    return("Hello")
     # print(companyDicionaryDB.scan())
     data = json.loads(request.data)
     access_token = None
@@ -80,7 +79,7 @@ def linkPlaid():
     access_token = user['plaid']['access_token']
     start_date = '{:%Y-%m-%d}'.format(datetime.now() + timedelta(-30))
     end_date = '{:%Y-%m-%d}'.format(datetime.now())
-
+    return(start_date)
     transactions_response = plaidClient.Transactions.get(access_token, start_date, end_date)
     transactions = transactions_response['transactions']
     while len(transactions) < transactions_response['total_transactions']:
