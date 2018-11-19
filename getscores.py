@@ -17,7 +17,7 @@ def getscores():
     try:
          item = db.users.find_one({'_id': ObjectId(data['id'])})
     except:
-         return("Oops!  That was no valid number.  Try again...")
+         return("Invalid Id")
     if item == None:
         return("Invalid User")
     else:
