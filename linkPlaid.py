@@ -36,7 +36,8 @@ def calculateScore(transactions):
     found = False
     notFound = 0
     for i in range(len(transactions)):
-        if item = companyDB.companies.find_one({'transactionMatch': transactions[i]['name']}) != None:
+        item = companyDB.companies.find_one({'transactionMatch': transactions[i]['name']})
+        if item != None:
             found = True
             foundCount += 1
             scores['environmental'] += int(item['eScore'])
