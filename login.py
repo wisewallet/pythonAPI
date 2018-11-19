@@ -14,7 +14,7 @@ db = client["users"]
 def login():
     data = json.loads(request.data)
     item = db.users.find_one({'email': data['email']})
-    print(item)
+    print(item["password"])
     if bcrypt.checkpw(data["password"], "$2b$08$PUYZ/WHwG4lf2gLsp8O5R.XO96mvisnqbFmz39nFTfHkKbq2S1Emy"):
         return("It Matches!")
     else:
