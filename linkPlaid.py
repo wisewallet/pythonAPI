@@ -5,7 +5,6 @@ import bcrypt
 import time as clock
 import plaid
 from datetime import datetime, time, date, timedelta
-import boto3
 from bson.objectid import ObjectId
 
 linkPlaid_api = Blueprint('linkPlaid_api', __name__)
@@ -19,16 +18,6 @@ secret = '0f2c037ebe121dfeffc15cd13bb5f7'
 public_key = '06812b585d6f3b0ebde352a7759bb1'
 environment = 'development'
 plaidClient = plaid.Client(client_id, secret, public_key, environment)
-
-# Get the service resource.
-dynamodb = boto3.resource('dynamodb')
-
-companyDicionaryDB = dynamodb.Table('companyDictionary')
-dictResponse = companyDicionaryDB.scan()
-companyDictionary = dictResponse['Items']
-while 'LastEvaluatedKey' in dictResponse:
-    response = companyDicionaryDB.scan(ExclusiveStartKey=response['LastEvaluatedKey'])
-    companyDictionary.extend(response['Items'])
 
 
 def get_first_day(dt, d_years=0, d_months=0):
@@ -47,20 +36,17 @@ def calculateScore(transactions):
     found = False
     notFound = 0
     for i in range(len(transactions)):
-        for attempt in companyDictionary:
-            if attempt['transactionString'] in transactions[i]['name'].lower():
-                found = True
-                item = companyDB.companies.find_one({'name': attempt['matchName']})
-                companyDB.companies.update_one({'name': attempt['matchName']}, {"$addToSet": {"transactionMatch": transactions[i]['name']}})
-                foundCount += 1
-                scores['environmental'] += int(item['eScore'])
-                scores['social'] += int(item['sScore'])
-                scores['governance'] += int(item['gScore'])
-                if item['pScore'] == "liberal":
-                    scores['politics'] += 100
-                if item['pScore'] == "neutral" or item['pScore'] == "na":
-                    scores['politics'] += 50
-                break
+        if item = companyDB.companies.find_one({'transactionMatch': transactions[i]['name']}) != None:
+            found = True
+            foundCount += 1
+            scores['environmental'] += int(item['eScore'])
+            scores['social'] += int(item['sScore'])
+            scores['governance'] += int(item['gScore'])
+            if item['pScore'] == "liberal":
+                scores['politics'] += 100
+            if item['pScore'] == "neutral" or item['pScore'] == "na":
+                scores['politics'] += 50
+            break
         if not found:
             companyDB.not_found.update({"name": transactions[i]['name']}, {'$inc': {"count": 1}}, upsert=True)
         found = False
@@ -101,8 +87,8 @@ def linkPlaid():
         start_date_unformatted = get_first_day(datetime.now(), 0, -(i + 1))
         start_date = '{:%Y-%m-%d}'.format(start_date_unformatted)
         end_date = '{:%Y-%m-%d}'.format(get_last_day(start_date_unformatted))
-        #print("Start: " + '{:%Y-%m-%d}'.format(start_date))
-        #print("End: " + '{:%Y-%m-%d}'.format(end_date))
+        # print("Start: " + '{:%Y-%m-%d}'.format(start_date))
+        # print("End: " + '{:%Y-%m-%d}'.format(end_date))
         transactions_response = plaidClient.Transactions.get(access_token, start_date, end_date)
         transactions = transactions_response['transactions']
         while len(transactions) < transactions_response['total_transactions']:
