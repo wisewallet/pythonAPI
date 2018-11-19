@@ -33,8 +33,13 @@ def calculateScore(transactions):
     scores = {'environmental': 0, 'social': 0, 'governance': 0, "politics": 0}
     foundCount = 0
     found = False
+    foundCompanies = dict()
     for i in range(len(transactions)):
-        item = companyDB.companies.find_one({'transactionMatch': transactions[i]['name']},{ 'eScore' : 1 , 'gScore' : 1 , 'sScore' : 1 , 'pScore' : 1})
+        if transactions[i]['name'] in foundCompanies:
+            item = foundCompanies[transactions[i]['name']]
+        else:
+            item = companyDB.companies.find_one({'transactionMatch': transactions[i]['name']},{ 'eScore' : 1 , 'gScore' : 1 , 'sScore' : 1 , 'pScore' : 1})
+            foundCompanies[transactions[i]['name']] = item
         if item != None:
             found = True
             foundCount += 1
