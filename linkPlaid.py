@@ -56,6 +56,7 @@ def calculateScore(transactions):
                 found = True
                 #print("Found: " + attempt['matchName'] + " as " + transactions[i]['name'])
                 item = companyDB.companies.find_one({'name':attempt['matchName']})
+                print("Found: " + transactions[i]['name'] + " as "attempt['transactionString'])
                 print("Found from MongoDB: "+ item['name'])
                 foundCount += 1
                 scores['environmental'] += int(item['eScore'])
