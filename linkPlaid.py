@@ -1,7 +1,6 @@
 from flask import Blueprint, request
 import simplejson as json
 import pymongo
-import bcrypt
 import time as clock
 import plaid
 from datetime import datetime, time, date, timedelta
@@ -47,7 +46,7 @@ def calculateScore(transactions):
             if item['pScore'] == "neutral" or item['pScore'] == "na":
                 scores['politics'] += 50
         if not found:
-            companyDB.not_found.update({"name": transactions[i]['name']}, {'$inc': {"count": 1}}, upsert=True)
+            companyDB.not_found.update_one({"name": transactions[i]['name']}, {'$inc': {"count": 1}}, upsert=True)
         found = False
     if foundCount == 0:
         return("No Transactions Found")
