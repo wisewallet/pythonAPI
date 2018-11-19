@@ -85,6 +85,17 @@ def linkPlaid():
     # print 'item ID: ' + exchange_response['item_id']
     user = db.users.find_one({'_id': ObjectId(data['id'])})
     access_token = user['plaid']['access_token']
+    start_date = '{:%Y-%m-%d}'.format(datetime.now())
+    end_date = '{:%Y-%m-%d}'.format(datetime.now() + timedelta(-30))
+
+    transactions_response = plaidClient.Transactions.get(access_token, start_date, end_date)
+    transactions = transactions_response['transactions']
+    while len(transactions) < transactions_response['total_transactions']:
+        transactions_response = plaidClient.Transactions.get(access_token, start_date, end_date, offset=len(transactions))
+        transactions.extend(transactions_response['transactions'])
+    scores = calculateScore(transactions)
+    db.users.update({"_id": user['_id']}, {'$set': {scores: scores, "initalizedCurrent": True}}, upsert=False)
+
     for i in range(6):
         start_date_unformatted = get_first_day(datetime.now(), 0, -(i + 1))
         start_date = '{:%Y-%m-%d}'.format(start_date_unformatted)
