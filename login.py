@@ -10,8 +10,8 @@ client = pymongo.MongoClient(
 db = client["users"]
 
 
-@signup_api.route("/login")
-def signup():
+@login_api.route("/login")
+def login():
     data = json.loads(request.data)
     item = companyDB.companies.find_one({'email': data['email']})
     if bcrypt.checkpw(item['password'], data['password']):
