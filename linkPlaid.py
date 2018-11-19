@@ -88,11 +88,13 @@ def linkPlaid():
     start = idk.time()
     # print(companyDicionaryDB.scan())
     data = json.loads(request.data)
-    access_token = "access-development-65c2bdad-21b0-47e5-b1c5-f1455b83c340"
+    access_token = None
     # public_token = data["public_token"]
     # exchange_response = plaidClient.Item.public_token.exchange(public_token)
     # print 'access token: ' + exchange_response['access_token']
     # print 'item ID: ' + exchange_response['item_id']
+    user = db.users.find_one({'_id': ObjectId(data['id'])})
+    access_token = user['plaid']['access_token']
     for i in range(6):
         start_date = get_first_day(datetime.now(), 0, -(i + 1))
         end_date = get_last_day(start_date)
@@ -117,7 +119,7 @@ def linkPlaid():
         scores = calculateScore(transactions)
         print(scores)
         updateQuery = "scoreHistory." + str(start_date)
-        db.users.update({"email": "williamjbrower@gmail.com"}, {
+        db.users.update({"_id": user['_id']}, {
                         '$set': {updateQuery: scores, "initalizedHistory": True}}, upsert=False)
     end = idk.time()
     # print(transactions)
