@@ -12,11 +12,11 @@ application.register_blueprint(linkPlaid_api)
 application.register_blueprint(login_api)
 application.register_blueprint(getscores_api)
 
-@application.route('/', methods=['GET'])
-def index():
+@application.route('/hello')
+def hello():
     return json.dumps("Hello World!")
 
-@application.route('/hello')
+@application.route('/', methods=['GET'])
 def index():
     return json.dumps("Hello World!")
 
