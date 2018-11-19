@@ -68,6 +68,7 @@ def calculateScore(transactions):
 @linkPlaid_api.route("/link")
 def linkPlaid():
     start = clock.time()
+    return("Hello")
     # print(companyDicionaryDB.scan())
     data = json.loads(request.data)
     access_token = None
