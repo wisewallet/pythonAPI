@@ -34,20 +34,18 @@ def calculateScore(transactions):
     scores = {'environmental': 0, 'social': 0, 'governance': 0, "politics": 0}
     foundCount = 0
     found = False
-    notFound = 0
     for i in range(len(transactions)):
         item = companyDB.companies.find_one({'transactionMatch': transactions[i]['name']})
         if item != None:
             found = True
             foundCount += 1
-            scores['environmental'] += int(item['eScore'])
-            scores['social'] += int(item['sScore'])
-            scores['governance'] += int(item['gScore'])
+            scores['environmental'] += item['eScore']
+            scores['social'] += item['sScore']
+            scores['governance'] += item['gScore']
             if item['pScore'] == "liberal":
                 scores['politics'] += 100
             if item['pScore'] == "neutral" or item['pScore'] == "na":
                 scores['politics'] += 50
-            break
         if not found:
             companyDB.not_found.update({"name": transactions[i]['name']}, {'$inc': {"count": 1}}, upsert=True)
         found = False
