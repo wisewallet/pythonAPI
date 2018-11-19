@@ -77,6 +77,7 @@ def linkPlaid():
     access_token = user['plaid']['access_token']
     start_date = '{:%Y-%m-%d}'.format(datetime.now() + timedelta(-30))
     end_date = '{:%Y-%m-%d}'.format(datetime.now())
+    return "i hate this"
     transactions_response = plaidClient.Transactions.get(access_token, start_date, end_date)
     transactions = transactions_response['transactions']
     while len(transactions) < transactions_response['total_transactions']:
