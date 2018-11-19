@@ -17,6 +17,6 @@ def login():
     if item == None:
         return("Invalid Email")
     if bcrypt.checkpw(data["password"], item["password"].encode("UTF-8")):
-        return(item["_id"])
+        return(str(item["_id"]))
     else:
         return("Invalid Password")
