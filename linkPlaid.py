@@ -82,6 +82,7 @@ def linkPlaid():
     while len(transactions) < transactions_response['total_transactions']:
         transactions_response = plaidClient.Transactions.get(access_token, start_date, end_date, offset=len(transactions))
         transactions.extend(transactions_response['transactions'])
+    return "here"
     scores = calculateScore(transactions)
     db.users.update({"_id": user['_id']}, {'$set': {"scores": scores, "initalizedCurrent": True}}, upsert=False)
     return "hi"
