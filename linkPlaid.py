@@ -85,8 +85,8 @@ def linkPlaid():
     # print 'item ID: ' + exchange_response['item_id']
     user = db.users.find_one({'_id': ObjectId(data['id'])})
     access_token = user['plaid']['access_token']
-    start_date = '{:%Y-%m-%d}'.format(datetime.now())
-    end_date = '{:%Y-%m-%d}'.format(datetime.now() + timedelta(-30))
+    start_date = '{:%Y-%m-%d}'.format(datetime.now() + timedelta(-30))
+    end_date = '{:%Y-%m-%d}'.format(datetime.now())
 
     transactions_response = plaidClient.Transactions.get(access_token, start_date, end_date)
     transactions = transactions_response['transactions']
