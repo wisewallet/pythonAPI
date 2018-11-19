@@ -18,4 +18,4 @@ def getscores():
     if item == None:
         return("Invalid User")
     else:
-        return({eScore: item['eScore'], sScore: item['sScore']})
+        return({"eScore": item['eScore'], "sScore": item['sScore']})
