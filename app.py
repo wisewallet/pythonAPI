@@ -12,14 +12,10 @@ application.register_blueprint(linkPlaid_api)
 application.register_blueprint(login_api)
 application.register_blueprint(getscores_api)
 
-@application.route('/hello')
-def hello():
-    return json.dumps("Hello World!")
-
 @application.route('/', methods=['GET'])
 def index():
     return json.dumps("Hello World!")
 
 
 if __name__ == '__main__':
-    application.run(host='0.0.0.0',debug=True)
+    application.run(host='0.0.0.0')
