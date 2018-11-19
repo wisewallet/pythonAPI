@@ -34,19 +34,20 @@ def calculateScore(transactions):
     foundCount = 0
     found = False
     for i in range(len(transactions)):
-        item = companyDB.companies.find_one({'transactionMatch': transactions[i]['name']})
+        item = companyDB.companies.find_one({'transactionMatch': transactions[i]['name']},{ 'eScore' : 1 , 'gScore' : 1 , 'sScore' : 1 , 'pScore' : 1})
         if item != None:
             found = True
             foundCount += 1
             scores['environmental'] += item['eScore']
             scores['social'] += item['sScore']
             scores['governance'] += item['gScore']
-            if item['pScore'] == "liberal":
+            companyPScore = item['pScore']
+            if companyPScore == "liberal":
                 scores['politics'] += 100
-            if item['pScore'] == "neutral" or item['pScore'] == "na":
+            if companyPScore == "neutral" or companyPScore == "na":
                 scores['politics'] += 50
-        #if not found:
-            #companyDB.not_found.update_one({"name": transactions[i]['name']}, {'$inc': {"count": 1}}, upsert=True)
+        if not found:
+            companyDB.not_found.update_one({"name": transactions[i]['name']}, {'$inc': {"count": 1}}, upsert=True)
         found = False
     if foundCount == 0:
         return("No Transactions Found")
