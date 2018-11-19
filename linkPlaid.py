@@ -2,9 +2,9 @@ from flask import Blueprint, request
 import simplejson as json
 import pymongo
 import bcrypt
-import time
+import time as clock
 import plaid
-from datetime import datetime, date, timedelta
+from datetime import datetime, time, date, timedelta
 import boto3
 from bson.objectid import ObjectId
 
@@ -75,7 +75,7 @@ def calculateScore(transactions):
 
 @linkPlaid_api.route("/link")
 def linkPlaid():
-    start = time.time()
+    start = clock.time()
     # print(companyDicionaryDB.scan())
     data = json.loads(request.data)
     access_token = None
@@ -98,5 +98,5 @@ def linkPlaid():
         scores = calculateScore(transactions)
         updateQuery = "scoreHistory." + str(start_date)
         db.users.update({"_id": user['_id']}, {'$set': {updateQuery: scores, "initalizedHistory": True}}, upsert=False)
-    end = time.time()
+    end = clock.time()
     return str(end - start)
