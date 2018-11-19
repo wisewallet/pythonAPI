@@ -30,7 +30,7 @@ def get_last_day(dt):
 
 
 def calculateScore(transactions):
-    scores = dict()
+    scores = {'environmental': 0, 'social': 0, 'governance': 0, 'politics': 0}
     foundCount = 0
     found = False
     foundCompanies = dict()
