@@ -86,8 +86,9 @@ def linkPlaid():
     user = db.users.find_one({'_id': ObjectId(data['id'])})
     access_token = user['plaid']['access_token']
     for i in range(6):
-        start_date = '{:%Y-%m-%d}'.format(get_first_day(datetime.now(), 0, -(i + 1)))
-        end_date = '{:%Y-%m-%d}'.format(get_last_day(start_date))
+        start_date_unformatted = get_first_day(datetime.now(), 0, -(i + 1))
+        start_date = '{:%Y-%m-%d}'.format(start_date_unformatted)
+        end_date = '{:%Y-%m-%d}'.format(get_last_day(start_date_unformatted))
         #print("Start: " + '{:%Y-%m-%d}'.format(start_date))
         #print("End: " + '{:%Y-%m-%d}'.format(end_date))
         transactions_response = plaidClient.Transactions.get(access_token, start_date, end_date)
