@@ -8,9 +8,6 @@ from bson.objectid import ObjectId
 linkPlaid_api = Blueprint('linkPlaid_api', __name__)
 
 mongoURI = "mongodb://dbadmin:xcdVRvVnykgGMeouDlTWEnVVh@69.55.55.54:27017/"
-mongoClient = pymongo.MongoClient(mongoURI)
-db = mongoClient["users"]
-companyDB = mongoClient["companies"]
 client_id = '5a9f59e5bdc6a4062cd4229b'
 secret = '0f2c037ebe121dfeffc15cd13bb5f7'
 public_key = '06812b585d6f3b0ebde352a7759bb1'
