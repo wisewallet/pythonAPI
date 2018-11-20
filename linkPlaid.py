@@ -69,8 +69,8 @@ def linkPlaid():
     # exchange_response = plaidClient.Item.public_token.exchange(public_token)
     # print 'access token: ' + exchange_response['access_token']
     # print 'item ID: ' + exchange_response['item_id']
-    return "fuck"
     user = current_app.userDB.db.users.find_one({'_id': ObjectId(data['id'])})
+    return "fuck mongo"
     access_token = user['plaid']['access_token']
     start_date = '{:%Y-%m-%d}'.format(datetime.now() + timedelta(-30))
     end_date = '{:%Y-%m-%d}'.format(datetime.now())
