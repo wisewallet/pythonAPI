@@ -7,7 +7,6 @@ from bson.objectid import ObjectId
 
 linkPlaid_api = Blueprint('linkPlaid_api', __name__)
 
-mongoURI = "mongodb://dbadmin:xcdVRvVnykgGMeouDlTWEnVVh@69.55.55.54:27017/"
 client_id = '5a9f59e5bdc6a4062cd4229b'
 secret = '0f2c037ebe121dfeffc15cd13bb5f7'
 public_key = '06812b585d6f3b0ebde352a7759bb1'
@@ -70,10 +69,7 @@ def linkPlaid():
     # exchange_response = plaidClient.Item.public_token.exchange(public_token)
     # print 'access token: ' + exchange_response['access_token']
     # print 'item ID: ' + exchange_response['item_id']
-    #user = db.users.find_one({'_id': ObjectId(data['id'])})
-    return current_app.mongo.db.users.find_one({'email': 'williamjbrower@gmail.com'})
-    user = db.users.find_one({'email': 'williamjbrower@gmail.com'})
-    return "fuck mongo"
+    user = current_app.userDB.db.users.find_one({'_id': ObjectId(data['id'])})
     access_token = user['plaid']['access_token']
     start_date = '{:%Y-%m-%d}'.format(datetime.now() + timedelta(-30))
     end_date = '{:%Y-%m-%d}'.format(datetime.now())
