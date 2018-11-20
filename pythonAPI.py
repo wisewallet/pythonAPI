@@ -7,7 +7,7 @@ from linkPlaid import linkPlaid_api
 from getscores import getscores_api
 
 app = Flask(__name__)
-app.config["MONGO_URI"] = "mongodb://dbadmin:xcdVRvVnykgGMeouDlTWEnVVh@69.55.55.54:27017/users"
+app.config["MONGO_URI"] = "mongodb://dbadmin:xcdVRvVnykgGMeouDlTWEnVVh@69.55.55.54:27017/"
 app.mongo = PyMongo(app)
 app.register_blueprint(signup_api)
 app.register_blueprint(linkPlaid_api)
