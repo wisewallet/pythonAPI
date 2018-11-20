@@ -1,4 +1,4 @@
-from flask import Blueprint, request
+from flask import Blueprint, request, current_app
 import simplejson as json
 import bcrypt
 from flask_pymongo import PyMongo
