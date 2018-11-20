@@ -11,7 +11,7 @@ def signup():
     data = json.loads(request.data)
     created = datetime.now()
     #start_date = '{:%Y-%m-%d}'.format(start_date_unformatted)
-    user = {"email": data['email'], "password": str(bcrypt.hashpw(data['password'].encode("UTF-8"), bcrypt.gensalt(
-    ))), "linked_plaid": False,"initalizedCurrent": False,"initalizedHistory": False, "name": data['name'], "created": created}
+    user = {"email": data['email'], "password": bcrypt.hashpw(data['password'].encode("UTF-8"), bcrypt.gensalt(
+    )), "linked_plaid": False,"initalizedCurrent": False,"initalizedHistory": False, "name": data['name'], "created": created}
     toReturn = current_app.userDB.db.users.insert_one(user).inserted_id
     return str(toReturn)
