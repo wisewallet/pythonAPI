@@ -5,17 +5,17 @@ from login import login_api
 from linkPlaid import linkPlaid_api
 from getscores import getscores_api
 
-application = Flask(__name__)
+app = Flask(__name__)
 
-application.register_blueprint(signup_api)
-application.register_blueprint(linkPlaid_api)
-application.register_blueprint(login_api)
-application.register_blueprint(getscores_api)
+app.register_blueprint(signup_api)
+app.register_blueprint(linkPlaid_api)
+app.register_blueprint(login_api)
+app.register_blueprint(getscores_api)
 
-@application.route('/', methods=['GET'])
+@app.route('/')
 def index():
     return json.dumps("Hello World!")
 
 
 if __name__ == '__main__':
-    application.run(host='0.0.0.0',debug=True)
+    app.run(host='0.0.0.0',debug=True)
