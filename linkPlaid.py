@@ -33,7 +33,7 @@ def calculateScore(transactions):
         if transactions[i]['name'] in foundCompanies:
             item = foundCompanies[transactions[i]['name']]
         else:
-            item = companyDB.companies.find_one({'transactionMatch': transactions[i]['name']},{ 'eScore' : 1 , 'gScore' : 1 , 'sScore' : 1 , 'pScore' : 1})
+            item = current_app.companyDB.db.companies.find_one({'transactionMatch': transactions[i]['name']},{ 'eScore' : 1 , 'gScore' : 1 , 'sScore' : 1 , 'pScore' : 1})
             foundCompanies[transactions[i]['name']] = item
         if item != None:
             found = True
@@ -47,7 +47,7 @@ def calculateScore(transactions):
             if companyPScore == "neutral" or companyPScore == "na":
                 scores['politics'] += 50
         if not found:
-            companyDB.not_found.update_one({"name": transactions[i]['name']}, {'$inc': {"count": 1}}, upsert=True)
+            current_app.companyDB.db.not_found.update_one({"name": transactions[i]['name']}, {'$inc': {"count": 1}}, upsert=True)
             foundCompanies[transactions[i]['name']] = None
         found = False
     if foundCount == 0:
@@ -73,15 +73,13 @@ def linkPlaid():
     access_token = user['plaid']['access_token']
     start_date = '{:%Y-%m-%d}'.format(datetime.now() + timedelta(-30))
     end_date = '{:%Y-%m-%d}'.format(datetime.now())
-    return "i hate this"
     transactions_response = plaidClient.Transactions.get(access_token, start_date, end_date)
     transactions = transactions_response['transactions']
     while len(transactions) < transactions_response['total_transactions']:
         transactions_response = plaidClient.Transactions.get(access_token, start_date, end_date, offset=len(transactions))
         transactions.extend(transactions_response['transactions'])
-    return "here"
     scores = calculateScore(transactions)
-    db.users.update({"_id": user['_id']}, {'$set': {"scores": scores, "initalizedCurrent": True}}, upsert=False)
+    current_app.userDB.db.users.update({"_id": user['_id']}, {'$set': {"scores": scores, "initalizedCurrent": True}}, upsert=False)
     return "hi"
     for i in range(6):
         start_date_unformatted = get_first_day(datetime.now(), 0, -(i + 1))
@@ -96,5 +94,5 @@ def linkPlaid():
             transactions.extend(transactions_response['transactions'])
         scores = calculateScore(transactions)
         updateQuery = "scoreHistory." + str(start_date)
-        db.users.update({"_id": user['_id']}, {'$set': {updateQuery: scores, "initalizedHistory": True}}, upsert=False)
+        current_app.userDB.db.users.update({"_id": user['_id']}, {'$set': {updateQuery: scores, "initalizedHistory": True}}, upsert=False)
     return "finished"
