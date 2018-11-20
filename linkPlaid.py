@@ -71,7 +71,6 @@ def linkPlaid():
     # print 'access token: ' + exchange_response['access_token']
     # print 'item ID: ' + exchange_response['item_id']
     #user = db.users.find_one({'_id': ObjectId(data['id'])})
-    current_app.mongo.db.authenticate("dbadmin", "xcdVRvVnykgGMeouDlTWEnVVh")
     return current_app.mongo.db.users.find_one({'email': 'williamjbrower@gmail.com'})
     user = db.users.find_one({'email': 'williamjbrower@gmail.com'})
     return "fuck mongo"
