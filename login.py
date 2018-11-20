@@ -16,7 +16,7 @@ def login():
     item = current_app.userDB.db.users.find_one({'email': data['email']})
     if item == None:
         return("Invalid Email")
-    if bcrypt.checkpw(data["password"], item["password"].encode("UTF-8")):
+    if bcrypt.checkpw(data["password"], item["password"]):
         return(str(item["_id"]))
     else:
         return("Invalid Password")
