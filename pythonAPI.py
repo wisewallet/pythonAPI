@@ -17,7 +17,7 @@ app.register_blueprint(getscores_api)
 
 @app.route('/')
 def index():
-    return json.dumps("Hello World! ")
+    return json.dumps(str(app.userDB.db.users.find_one({'email': 'willliamjbrower@gmail.com'})))
 
 
 if __name__ == '__main__':
