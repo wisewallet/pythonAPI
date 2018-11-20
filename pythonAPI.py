@@ -9,10 +9,8 @@ from getscores import getscores_api
 app = Flask(__name__)
 
 app.config["MONGO_URI"] = "mongodb://dbadmin:xcdVRvVnykgGMeouDlTWEnVVh@69.55.55.54:27017/users"
-app.config.setdefault(key('AUTH_MECHANISM'), 'DEFAULT')
 app.mongo = PyMongo(app)
-mechanism = app.config[key('AUTH_MECHANISM')]
-app.mongo.db.authenticate("dbadmin", "xcdVRvVnykgGMeouDlTWEnVVh", mechanism=mechanism)
+app.mongo.db.authenticate("dbadmin", "xcdVRvVnykgGMeouDlTWEnVVh")
 app.register_blueprint(signup_api)
 app.register_blueprint(linkPlaid_api)
 app.register_blueprint(login_api)
