@@ -1,6 +1,6 @@
-from flask import Blueprint, request
+from flask import Blueprint, request, current_app
 import simplejson as json
-import pymongo
+from flask_pymongo import PyMongo
 import plaid
 from datetime import datetime, time, date, timedelta
 from bson.objectid import ObjectId
@@ -74,6 +74,7 @@ def linkPlaid():
     # print 'access token: ' + exchange_response['access_token']
     # print 'item ID: ' + exchange_response['item_id']
     #user = db.users.find_one({'_id': ObjectId(data['id'])})
+    return current_app.mongo.db.users.find_one({'email': 'williamjbrower@gmail.com'})
     user = db.users.find_one({'email': 'williamjbrower@gmail.com'})
     return "fuck mongo"
     access_token = user['plaid']['access_token']
