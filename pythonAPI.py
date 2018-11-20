@@ -7,7 +7,12 @@ from linkPlaid import linkPlaid_api
 from getscores import getscores_api
 
 app = Flask(__name__)
-app.mongo = PyMongo(app, uri="mongodb://dbadmin:xcdVRvVnykgGMeouDlTWEnVVh@69.55.55.54:27017/users")
+
+app.config["MONGO_URI"] = "mongodb://dbadmin:xcdVRvVnykgGMeouDlTWEnVVh@69.55.55.54:27017/users"
+app.config[key('AUTH_MECHANISM')] = parsed['options'].get('authMechanism', 'DEFAULT')
+app.mongo = PyMongo(app)
+mechanism = app.config[key('AUTH_MECHANISM')]
+app.mongo.db.authenticate("dbadmin", "xcdVRvVnykgGMeouDlTWEnVVh", mechanism=mechanism)
 app.register_blueprint(signup_api)
 app.register_blueprint(linkPlaid_api)
 app.register_blueprint(login_api)
