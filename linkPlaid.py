@@ -80,7 +80,6 @@ def linkPlaid():
         transactions.extend(transactions_response['transactions'])
     scores = calculateScore(transactions)
     current_app.userDB.db.users.update({"_id": user['_id']}, {'$set': {"scores": scores, "initalizedCurrent": True}}, upsert=False)
-    return "hi"
     for i in range(6):
         start_date_unformatted = get_first_day(datetime.now(), 0, -(i + 1))
         start_date = '{:%Y-%m-%d}'.format(start_date_unformatted)
