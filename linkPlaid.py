@@ -71,7 +71,7 @@ def linkPlaid():
     # print 'access token: ' + exchange_response['access_token']
     # print 'item ID: ' + exchange_response['item_id']
     #user = db.users.find_one({'_id': ObjectId(data['id'])})
-    return current_app.mongo.db.find_one({'email': 'williamjbrower@gmail.com'})
+    return current_app.mongo.db.users.find_one({'email': 'williamjbrower@gmail.com'})
     user = db.users.find_one({'email': 'williamjbrower@gmail.com'})
     return "fuck mongo"
     access_token = user['plaid']['access_token']
